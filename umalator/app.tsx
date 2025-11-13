@@ -24,6 +24,7 @@ import skilldata from '../uma-skill-tools/data/skill_data.json';
 import skillnames from '../uma-skill-tools/data/skillnames.json';
 import skill_meta from '../skill_meta.json';
 import championsMeetings from './champions_meetings.json';
+import { assetPath } from './assetPath';
 
 function skillmeta(id: string) {
 	// handle the fake skills (e.g., variations of Sirius unique) inserted by make_skill_data with ids like 100701-1
@@ -188,7 +189,7 @@ function TimeOfDaySelect(props) {
 	return (
 		<div class="timeofdaySelect" onClick={click}>
 			{Array(3).fill(0).map((_,i) =>
-				<img src={`/uma-tools/icons/utx_ico_timezone_0${i}.png`} title={SKILL_STRINGS_en.skilldetails.time[i+2]}
+				<img src={assetPath(`/uma-tools/icons/utx_ico_timezone_0${i}.png`)} title={SKILL_STRINGS_en.skilldetails.time[i+2]}
 					class={i+2 == props.value ? 'selected' : ''} data-timeofday={i+2} />)}
 		</div>
 	);
@@ -224,7 +225,7 @@ function WeatherSelect(props) {
 	return (
 		<div class="weatherSelect" onClick={click}>
 			{Array(4).fill(0).map((_,i) =>
-				<img src={`/uma-tools/icons/utx_ico_weather_0${i}.png`} title={SKILL_STRINGS_en.skilldetails.weather[i+1]}
+				<img src={assetPath(`/uma-tools/icons/utx_ico_weather_0${i}.png`)} title={SKILL_STRINGS_en.skilldetails.weather[i+1]}
 					class={i+1 == props.value ? 'selected' : ''} data-weather={i+1} />)}
 		</div>
 	);
@@ -239,7 +240,7 @@ function SeasonSelect(props) {
 	return (
 		<div class="seasonSelect" onClick={click}>
 			{Array(4 + +!CC_GLOBAL /* global doenst have late spring for some reason */).fill(0).map((_,i) =>
-				<img src={`/uma-tools/icons${CC_GLOBAL?'/global':''}/utx_txt_season_0${i}.png`} title={SKILL_STRINGS_en.skilldetails.season[i+1]}
+				<img src={assetPath(`/uma-tools/icons${CC_GLOBAL?'/global':''}/utx_txt_season_0${i}.png`)} title={SKILL_STRINGS_en.skilldetails.season[i+1]}
 					class={i+1 == props.value ? 'selected' : ''} data-season={i+1} />)}
 		</div>
 	);

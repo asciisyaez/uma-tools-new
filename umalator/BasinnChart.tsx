@@ -20,6 +20,7 @@ import './BasinnChart.css';
 
 import skillnames from '../uma-skill-tools/data/skillnames.json';
 import skill_meta from '../skill_meta.json';
+import { assetPath } from './assetPath';
 
 function skillmeta(id: string) {
 	// handle the fake skills (e.g., variations of Sirius unique) inserted by make_skill_data with ids like 100701-1
@@ -53,7 +54,7 @@ function formatBasinn(info) {
 function SkillNameCell(props) {
 	return (
 		<div class="chartSkillName">
-			<img src={`/uma-tools/icons/${skillmeta(props.id).iconId}.png`} />
+			<img src={assetPath(`/uma-tools/icons/${skillmeta(props.id).iconId}.png`)} />
 			<span><Text id={`skillnames.${props.id}`} /></span>
 		</div>
 	);
