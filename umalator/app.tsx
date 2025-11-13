@@ -20,11 +20,10 @@ import { getActivateableSkills, getNullRow, runBasinnChart, BasinnChart } from '
 
 import { initTelemetry, postEvent } from './telemetry';
 
-import { IntroText } from './IntroText';
-
 import skilldata from '../uma-skill-tools/data/skill_data.json';
 import skillnames from '../uma-skill-tools/data/skillnames.json';
 import skill_meta from '../skill_meta.json';
+import championsMeetings from './champions_meetings.json';
 
 function skillmeta(id: string) {
 	// handle the fake skills (e.g., variations of Sirius unique) inserted by make_skill_data with ids like 100701-1
@@ -47,34 +46,115 @@ class RaceParams extends Record({
 
 const enum EventType { CM, LOH }
 
-const presets = (CC_GLOBAL ? [
-	{type: EventType.CM, name: 'Leo Cup', date: '2025-10-30', courseId: 10906, season: Season.Summer, ground: GroundCondition.Good, weather: Weather.Sunny, time: Time.Midday},
-	{type: EventType.CM, name: 'Cancer Cup', date: '2025-10-07', courseId: 10602, season: Season.Summer, ground: GroundCondition.Yielding, weather: Weather.Sunny, time: Time.Midday},
-	{type: EventType.CM, name: 'Gemini Cup', date: '2025-09', courseId: 10811, season: Season.Spring, ground: GroundCondition.Good, weather: Weather.Sunny, time: Time.Midday},
-	{type: EventType.CM, name: 'Taurus Cup', date: '2025-08', courseId: 10606, season: Season.Spring, ground: GroundCondition.Good, weather: Weather.Sunny, time: Time.Midday}
-] : [
+const EVENT_TYPE_LOOKUP = {
+	CM: EventType.CM,
+	LOH: EventType.LOH
+} as const;
+
+const SEASON_LOOKUP = {
+	Spring: Season.Spring,
+	Summer: Season.Summer,
+	Autumn: Season.Autumn,
+	Winter: Season.Winter,
+	Sakura: Season.Sakura
+} as const;
+
+const GROUND_LOOKUP = {
+	Firm: GroundCondition.Good,
+	Good: GroundCondition.Good,
+	Yielding: GroundCondition.Yielding,
+	Soft: GroundCondition.Soft,
+	Heavy: GroundCondition.Heavy
+} as const;
+
+const WEATHER_LOOKUP = {
+	Sunny: Weather.Sunny,
+	Cloudy: Weather.Cloudy,
+	Rainy: Weather.Rainy,
+	Snowy: Weather.Snowy
+} as const;
+
+const TIME_LOOKUP = {
+	Morning: Time.Morning,
+	Midday: Time.Midday,
+	Evening: Time.Evening,
+	Night: Time.Night
+} as const;
+
+const CHAMPIONS_MEETING_ORDER = [
+	'Taurus Cup',
+	'Gemini Cup',
+	'Cancer Cup',
+	'Leo Cup',
+	'Virgo Cup',
+	'Libra Cup',
+	'Scorpio Cup',
+	'Sagittarius Cup',
+	'Capricorn Cup',
+	'Aquarius Cup',
+	'Pisces Cup',
+	'Aries Cup'
+] as const;
+const CHAMPIONS_MEETING_LABELS = new Map(CHAMPIONS_MEETING_ORDER.map((name, idx) => [name, idx + 1]));
+
+type ChampionMeetingRecord = {
+	type: keyof typeof EVENT_TYPE_LOOKUP
+	name?: string
+	date: string
+	courseId: number
+	season: keyof typeof SEASON_LOOKUP
+	ground: keyof typeof GROUND_LOOKUP
+	weather: keyof typeof WEATHER_LOOKUP
+	time: keyof typeof TIME_LOOKUP
+};
+
+function buildGlobalPresetRecords(records: ChampionMeetingRecord[]) {
+	return records.map(def => ({
+		type: EVENT_TYPE_LOOKUP[def.type] ?? EventType.CM,
+		name: def.name,
+		date: def.date,
+		courseId: def.courseId,
+		season: SEASON_LOOKUP[def.season] ?? Season.Spring,
+		ground: GROUND_LOOKUP[def.ground] ?? GroundCondition.Good,
+		weather: WEATHER_LOOKUP[def.weather] ?? Weather.Sunny,
+		time: TIME_LOOKUP[def.time] ?? Time.Midday
+	}));
+}
+
+const presetSources = (CC_GLOBAL ? buildGlobalPresetRecords(championsMeetings as ChampionMeetingRecord[]) : [
 	{type: EventType.LOH, date: '2025-11', courseId: 11502, season: Season.Autumn, time: Time.Midday},
 	{type: EventType.CM, date: '2025-10', courseId: 10302, season: Season.Autumn, ground: GroundCondition.Good, weather: Weather.Cloudy, time: Time.Midday},
 	{type: EventType.CM, date: '2025-09-22', courseId: 10807, season: Season.Autumn, ground: GroundCondition.Good, weather: Weather.Sunny, time: Time.Midday},
-	{type: EventType.LOH, date: '2025-08', courseId: 10105, season: Season.Summer, Time: Time.Midday},
+	{type: EventType.LOH, date: '2025-08', courseId: 10105, season: Season.Summer, time: Time.Midday},
 	{type: EventType.CM, date: '2025-07-25', courseId: 10906, ground: GroundCondition.Yielding, weather: Weather.Cloudy, season: Season.Summer, time: Time.Midday},
 	{type: EventType.CM, date: '2025-06-21', courseId: 10606, ground: GroundCondition.Good, weather: Weather.Sunny, season: Season.Spring, time: Time.Midday}
-])
-	.map(def => ({
-		type: def.type,
-		name: def.name,
-		date: new Date(def.date),
-		courseId: def.courseId,
-		racedef: new RaceParams({
-			mood: 2 as Mood,
-			ground: def.type == EventType.CM ? def.ground : GroundCondition.Good,
-			weather: def.type == EventType.CM ? def.weather : Weather.Sunny,
-			season: def.season,
-			time: def.time,
-			grade: Grade.G1
-		})
-	}))
-	.sort((a,b) => +b.date - +a.date);
+]);
+
+const presets = presetSources
+	.map(def => {
+		const cmIndex = def.type == EventType.CM && def.name ? CHAMPIONS_MEETING_LABELS.get(def.name) ?? null : null;
+		return {
+			type: def.type,
+			name: def.name,
+			cmIndex,
+			date: new Date(def.date),
+			courseId: def.courseId,
+			racedef: new RaceParams({
+				mood: 2 as Mood,
+				ground: def.type == EventType.CM ? def.ground : GroundCondition.Good,
+				weather: def.type == EventType.CM ? def.weather : Weather.Sunny,
+				season: def.season,
+				time: def.time,
+				grade: Grade.G1
+			})
+		};
+	})
+	.sort((a,b) => {
+		const aIdx = a.cmIndex ?? Number.POSITIVE_INFINITY;
+		const bIdx = b.cmIndex ?? Number.POSITIVE_INFINITY;
+		if (aIdx !== bIdx) return aIdx - bIdx;
+		return +a.date - +b.date;
+	});
 
 const DEFAULT_PRESET = presets[Math.max(presets.findIndex((now => p => new Date(p.date.getFullYear(), p.date.getUTCMonth() + 1, 0) < now)(new Date())) - 1, 0)];
 const DEFAULT_COURSE_ID = DEFAULT_PRESET.courseId;
@@ -393,7 +473,14 @@ function RacePresets(props) {
 			<label for={id}>Preset:</label>
 			<select id={id} onChange={e => { const i = +e.currentTarget.value; i > -1 && props.set(presets[i].courseId, presets[i].racedef); }}>
 				<option value="-1"></option>
-				{presets.map((p,i) => <option value={i} selected={i == selectedIdx}>{p.name || (p.date.getFullYear() + '-' + (100 + p.date.getUTCMonth() + 1).toString().slice(-2) + (p.type == EventType.CM ? ' CM' : ' LOH'))}</option>)}
+				{presets.map((p,i) => {
+					const fallbackLabel = p.name || (p.date.getFullYear() + '-' + (100 + p.date.getUTCMonth() + 1).toString().slice(-2) + (p.type == EventType.CM ? ' CM' : ' LOH'));
+					let optionLabel = fallbackLabel;
+					if (p.type == EventType.CM && p.name) {
+						optionLabel = p.cmIndex != null ? `CM${p.cmIndex} - ${p.name}` : `CM - ${p.name}`;
+					}
+					return <option value={i} selected={i == selectedIdx}>{optionLabel}</option>;
+				})}
 			</select>
 		</Fragment>
 	);
@@ -691,14 +778,6 @@ function App(props) {
 						onRunTypeChange={setChartData}
 						onDblClickRow={addSkillFromTable}
 						onInfoClick={showPopover} />
-				</div>
-			</div>
-		);
-	} else if (CC_GLOBAL) {
-		resultsPane = (
-			<div id="resultsPaneWrapper">
-				<div id="resultsPane">
-					<IntroText />
 				</div>
 			</div>
 		);

@@ -1,0 +1,123 @@
+[
+	{
+		"type": "CM",
+		"name": "Leo Cup",
+		"date": "2025-10-30",
+		"courseId": 10906,
+		"season": "Summer",
+		"ground": "Good",
+		"weather": "Sunny",
+		"time": "Midday"
+	},
+	{
+		"type": "CM",
+		"name": "Cancer Cup",
+		"date": "2025-10-07",
+		"courseId": 10602,
+		"season": "Summer",
+		"ground": "Yielding",
+		"weather": "Sunny",
+		"time": "Midday"
+	},
+	{
+		"type": "CM",
+		"name": "Gemini Cup",
+		"date": "2025-09-01",
+		"courseId": 10811,
+		"season": "Spring",
+		"ground": "Good",
+		"weather": "Sunny",
+		"time": "Midday"
+	},
+	{
+		"type": "CM",
+		"name": "Taurus Cup",
+		"date": "2025-08-01",
+		"courseId": 10606,
+		"season": "Spring",
+		"ground": "Good",
+		"weather": "Sunny",
+		"time": "Midday"
+	},
+	{
+		"type": "CM",
+		"name": "Aries Cup",
+		"date": "2025-04-22",
+		"courseId": 10504,
+		"season": "Spring",
+		"ground": "Firm",
+		"weather": "Sunny",
+		"time": "Midday"
+	},
+	{
+		"type": "CM",
+		"name": "Pisces Cup",
+		"date": "2025-03-22",
+		"courseId": 10914,
+		"season": "Spring",
+		"ground": "Heavy",
+		"weather": "Rainy",
+		"time": "Midday"
+	},
+	{
+		"type": "CM",
+		"name": "Aquarius Cup",
+		"date": "2025-02-18",
+		"courseId": 10611,
+		"season": "Winter",
+		"ground": "Firm",
+		"weather": "Sunny",
+		"time": "Midday"
+	},
+	{
+		"type": "CM",
+		"name": "Capricorn Cup",
+		"date": "2025-01-22",
+		"courseId": 10701,
+		"season": "Winter",
+		"ground": "Soft",
+		"weather": "Snowy",
+		"time": "Midday"
+	},
+	{
+		"type": "CM",
+		"name": "Sagittarius Cup",
+		"date": "2024-12-21",
+		"courseId": 10506,
+		"season": "Winter",
+		"ground": "Firm",
+		"weather": "Sunny",
+		"time": "Midday"
+	},
+	{
+		"type": "CM",
+		"name": "Scorpio Cup",
+		"date": "2024-11-23",
+		"courseId": 10604,
+		"season": "Autumn",
+		"ground": "Soft",
+		"weather": "Rainy",
+		"time": "Midday"
+	},
+	{
+		"type": "CM",
+		"name": "Libra Cup",
+		"date": "2024-10-22",
+		"courseId": 10810,
+		"season": "Autumn",
+		"ground": "Firm",
+		"weather": "Sunny",
+		"time": "Midday"
+	},
+	{
+		"type": "CM",
+		"name": "Virgo Cup",
+		"date": "2024-09-21",
+		"courseId": 10903,
+		"season": "Autumn",
+		"ground": "Firm",
+		"weather": "Sunny",
+		"time": "Midday"
+	}
+]
+
