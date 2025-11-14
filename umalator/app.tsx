@@ -31,7 +31,12 @@ function skillmeta(id: string) {
 	return skill_meta[id.split('-')[0]];
 }
 
-import './app.css';
+declare function require(path: string): void;
+if (CC_GLOBAL) {
+	require('./app.global.css');
+} else {
+	require('./app.classic.css');
+}
 
 const DEFAULT_SAMPLES = 500;
 const DEFAULT_SEED = 2615953739;
