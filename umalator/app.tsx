@@ -802,6 +802,26 @@ function App(props) {
 							<text id="rtV2" x="25" y="20" fill="#c52a2a" font-size="10px"></text>
 						</g>
 					</RaceTrack>
+					{expanded && <div id="umaPane" />}
+					<div id={expanded ? 'umaOverlay' : 'umaPane'}>
+						<div class={!expanded && currentIdx == 0 ? 'selected' : ''}>
+							<HorseDef key={uma1.outfitId} state={uma1} setState={setUma1} courseDistance={course.distance} tabstart={() => 4}>
+								{expanded ? 'Umamusume 1' : umaTabs}
+							</HorseDef>
+						</div>
+						{expanded &&
+							<div id="copyUmaButtons">
+								<div id="copyUmaToRight" title="Copy uma 1 to uma 2" onClick={copyUmaToRight} />
+								<div id="copyUmaToLeft" title="Copy uma 2 to uma 1" onClick={copyUmaToLeft} />
+								<div id="swapUmas" title="Swap umas" onClick={swapUmas}>⮂</div>
+							</div>}
+						{mode == Mode.Compare && <div class={!expanded && currentIdx == 1 ? 'selected' : ''}>
+							<HorseDef key={uma2.outfitId} state={uma2} setState={setUma2} courseDistance={course.distance} tabstart={() => 4 + horseDefTabs()}>
+								{expanded ? 'Umamusume 2' : umaTabs}
+							</HorseDef>
+						</div>}
+						{expanded && <div id="closeUmaOverlay" title="Close panel" onClick={toggleExpand}>✕</div>}
+					</div>
 					<div id="runPane">
 						<fieldset>
 							<legend>Mode:</legend>
@@ -849,26 +869,6 @@ function App(props) {
 					</div>
 				</div>
 				{resultsPane}
-				{expanded && <div id="umaPane" />}
-				<div id={expanded ? 'umaOverlay' : 'umaPane'}>
-					<div class={!expanded && currentIdx == 0 ? 'selected' : ''}>
-						<HorseDef key={uma1.outfitId} state={uma1} setState={setUma1} courseDistance={course.distance} tabstart={() => 4}>
-							{expanded ? 'Umamusume 1' : umaTabs}
-						</HorseDef>
-					</div>
-					{expanded &&
-						<div id="copyUmaButtons">
-							<div id="copyUmaToRight" title="Copy uma 1 to uma 2" onClick={copyUmaToRight} />
-							<div id="copyUmaToLeft" title="Copy uma 2 to uma 1" onClick={copyUmaToLeft} />
-							<div id="swapUmas" title="Swap umas" onClick={swapUmas}>⮂</div>
-						</div>}
-					{mode == Mode.Compare && <div class={!expanded && currentIdx == 1 ? 'selected' : ''}>
-						<HorseDef key={uma2.outfitId} state={uma2} setState={setUma2} courseDistance={course.distance} tabstart={() => 4 + horseDefTabs()}>
-							{expanded ? 'Umamusume 2' : umaTabs}
-						</HorseDef>
-					</div>}
-					{expanded && <div id="closeUmaOverlay" title="Close panel" onClick={toggleExpand}>✕</div>}
-				</div>
 				{popoverSkill && <BasinnChartPopover skillid={popoverSkill} results={tableData.get(popoverSkill).results} courseDistance={course.distance} />}
 			</IntlProvider>
 		</Language.Provider>

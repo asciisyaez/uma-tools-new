@@ -64,9 +64,15 @@ a:hover {
 #topPane {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) 340px;
+	grid-template-rows: auto auto auto;
 	gap: 28px;
 	align-items: start;
 	width: 100%;
+}
+
+.racetrackWrapper {
+	grid-column: 1;
+	grid-row: 1 / span 3;
 }
 
 .racetrackView {
@@ -97,6 +103,8 @@ a:hover {
 }
 
 #runPane {
+	grid-column: 2;
+	grid-row: 2;
 	display: grid;
 	gap: 18px;
 	align-content: start;
@@ -213,6 +221,8 @@ button#run:active {
 }
 
 #buttonsRow {
+	grid-column: 2;
+	grid-row: 3;
 	display: flex;
 	align-items: center;
 	gap: 18px;
@@ -248,16 +258,28 @@ button#run:active {
 .trackSelect > select {
 	appearance: none;
 	border: none;
-	background: transparent;
+	background: rgba(15, 23, 42, 0.75);
 	color: var(--text-primary);
 	padding: 10px 14px;
 	font-size: 0.95rem;
 	min-width: 120px;
 	border-right: 1px solid rgba(148, 163, 184, 0.25);
+	backdrop-filter: blur(var(--glass-blur));
 }
 
 .trackSelect > select:last-child {
 	border-right: none;
+}
+
+.trackSelect > select:focus {
+	outline: none;
+	background: rgba(30, 41, 59, 0.85);
+	box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.trackSelect > select option {
+	background: rgba(15, 23, 42, 0.95);
+	color: var(--text-primary);
 }
 
 .groundSelect,
@@ -451,11 +473,17 @@ button#run:active {
 }
 
 #umaPane {
-	grid-row: 1 / 3;
+	grid-column: 2;
+	grid-row: 1;
 	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
 	gap: 20px;
+}
+
+#umaOverlay {
+	grid-column: 2;
+	grid-row: 1;
 }
 
 #umaPane > div {
@@ -661,6 +689,16 @@ button#run:active {
 @media (max-width: 1360px) {
 	#topPane {
 		grid-template-columns: minmax(0, 1fr);
+		grid-template-rows: auto;
+	}
+
+	.racetrackWrapper,
+	#umaPane,
+	#umaOverlay,
+	#runPane,
+	#buttonsRow {
+		grid-column: 1;
+		grid-row: auto;
 	}
 
 	.racetrackView > svg {
