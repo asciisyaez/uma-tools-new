@@ -56,31 +56,23 @@ a:hover {
 #app {
 	display: flex;
 	flex-direction: column;
-	gap: clamp(20px, 3vw, 32px);
-	padding: clamp(32px, 4vw, 48px) clamp(16px, 4vw, 48px) clamp(24px, 3vw, 32px);
+	gap: 28px;
+	padding: 48px min(48px, 5vw) 32px;
 	min-height: 100vh;
-	width: min(100%, 1680px);
-	margin: 0 auto;
 }
 
 #topPane {
 	display: grid;
-	grid-template-columns: clamp(320px, 28vw, 400px) minmax(0, 1fr);
+	grid-template-columns: minmax(0, 1fr) 340px;
 	grid-template-rows: auto auto auto;
-	grid-template-areas:
-		"uma track"
-		"uma run"
-		"uma buttons";
-	gap: clamp(20px, 2.5vw, 32px);
+	gap: 28px;
 	align-items: start;
 	width: 100%;
 }
 
 .racetrackWrapper {
-	grid-area: track;
-	justify-self: start;
-	min-width: 0;
-	width: min(100%, var(--track-width, 980px));
+	grid-column: 1;
+	grid-row: 1 / span 3;
 }
 
 .racetrackView {
@@ -95,15 +87,9 @@ a:hover {
 	max-width: 100%;
 }
 
-.racetrackView {
-	display: block;
-	width: 100%;
-	min-width: 0;
-}
-
 .racetrackView > svg {
-	width: 100%;
-	min-width: 0;
+	width: 960px;
+	min-width: 960px;
 	height: auto;
 }
 
@@ -117,7 +103,8 @@ a:hover {
 }
 
 #runPane {
-	grid-area: run;
+	grid-column: 2;
+	grid-row: 2;
 	display: grid;
 	gap: 18px;
 	align-content: start;
@@ -234,13 +221,13 @@ button#run:active {
 }
 
 #buttonsRow {
-	grid-area: buttons;
+	grid-column: 2;
+	grid-row: 3;
 	display: flex;
 	align-items: center;
-	gap: clamp(12px, 2vw, 18px);
+	gap: 18px;
 	flex-wrap: wrap;
 	width: 100%;
-	min-width: 0;
 	position: relative;
 	padding: 8px 18px;
 	margin: 4px 0;
@@ -486,17 +473,17 @@ button#run:active {
 }
 
 #umaPane {
-	grid-column: 1;
-	grid-row: 1 / span 3;
+	grid-column: 2;
+	grid-row: 1;
 	width: 100%;
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
 	gap: 20px;
 }
 
 #umaOverlay {
-	grid-column: 1;
-	grid-row: 1 / span 3;
+	grid-column: 2;
+	grid-row: 1;
 }
 
 #umaPane > div {
@@ -714,6 +701,10 @@ button#run:active {
 		grid-row: auto;
 	}
 
+	.racetrackView > svg {
+		min-width: 720px;
+	}
+
 	#runPane {
 		order: 2;
 		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -737,6 +728,10 @@ button#run:active {
 @media (max-width: 900px) {
 	#app {
 		padding: 32px 20px 24px;
+	}
+
+	.racetrackView > svg {
+		min-width: 640px;
 	}
 
 	#runPane {
@@ -774,6 +769,10 @@ button#run:active {
 
 	.racetrackView {
 		padding: 14px;
+	}
+
+	.racetrackView > svg {
+		min-width: 560px;
 	}
 
 	#buttonsRow {

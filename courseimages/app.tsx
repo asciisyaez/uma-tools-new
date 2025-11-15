@@ -4,7 +4,6 @@ import tracknames from '../uma-skill-tools/data/tracknames.json';
 
 import { CourseHelpers } from '../uma-skill-tools/CourseData';
 import { RaceTrack, TrackSelect } from '../components/RaceTrack';
-import './app.css';
 
 const inoutKey = Object.freeze(['', '', '-in', '-out', '-outin']);
 
@@ -46,13 +45,11 @@ function App(props) {
 	return (
 		<div id="wrapper">
 			<RaceTrack courseid={courseId} width={960} height={240} regions={[]} />
-			<div id="controlPanel">
-				<div id="buttonsRow">
-					<TrackSelect key={courseId} courseid={courseId} setCourseid={setCourseId} tabindex={2} />
-				</div>
-				<canvas id="rc" width="960" height="240" ref={rc} />
-				<a href="#" download="" ref={dl} class="downloadLink">Download</a>
+			<div id="buttonsRow">
+				<TrackSelect key={courseId} courseid={courseId} setCourseid={setCourseId} tabindex={2} />
 			</div>
+			<canvas id="rc" width="960" height="240" ref={rc} />
+			<a href="#" download="" ref={dl} style="display:block">Download</a>
 		</div>
 	);
 }

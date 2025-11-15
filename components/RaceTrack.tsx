@@ -371,7 +371,7 @@ export function RaceTrack(props) {
 
 	return (
 		<IntlProvider definition={lang == 'ja' ? STRINGS_ja : STRINGS_en}>
-			<div class="racetrackWrapper" style={{'--track-width': `${props.width + xOffset + xExtra}px`}}>
+			<div class="racetrackWrapper" style={`width:${props.width + xOffset + xExtra}px`}>
 				{trackNameHeader}
 				<svg version="1.1" width={props.width + xOffset + xExtra} height={props.height + yOffset + yExtra} xmlns="http://www.w3.org/2000/svg" class="racetrackView" data-courseid={props.courseid} onMouseMove={doMouseMove} onMouseLeave={doMouseLeave}>
 					<svg x={props.xOffset} y={props.yOffset} width={props.width} height={props.height}>
