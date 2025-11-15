@@ -24,14 +24,17 @@ body {
 	display: grid;
 	grid-template-columns: minmax(360px, 700px) 960px;
 	grid-template-rows: auto auto auto;
+	grid-template-areas:
+		"uma track"
+		"uma run"
+		"uma buttons";
 	gap: 20px;
 	width: fit-content;
 	align-items: start;
 }
 
 .racetrackWrapper {
-	grid-column: 2;
-	grid-row: 1;
+	grid-area: track;
 	justify-self: start;
 }
 
@@ -265,13 +268,11 @@ body {
 }
 
 #buttonsRow {
-	grid-column: 2;
-	grid-row: 3;
+	grid-area: buttons;
 }
 
 #runPane {
-	grid-column: 2;
-	grid-row: 2;
+	grid-area: run;
 }
 
 @media (max-width: 1280px) {
