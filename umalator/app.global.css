@@ -63,7 +63,7 @@ a:hover {
 
 #topPane {
 	display: grid;
-	grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
+	grid-template-columns: minmax(360px, 420px) minmax(960px, 1fr);
 	grid-template-rows: auto auto auto;
 	gap: 28px;
 	align-items: start;
@@ -73,6 +73,7 @@ a:hover {
 .racetrackWrapper {
 	grid-column: 2;
 	grid-row: 1;
+	justify-self: start;
 }
 
 .racetrackView {
