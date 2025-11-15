@@ -22,7 +22,7 @@ body {
 
 #topPane {
 	display: grid;
-	grid-template-columns: 960px auto;
+	grid-template-columns: minmax(360px, 700px) 960px;
 	grid-template-rows: auto auto auto;
 	gap: 20px;
 	width: fit-content;
@@ -30,7 +30,7 @@ body {
 }
 
 .racetrackWrapper {
-	grid-column: 1;
+	grid-column: 2;
 	grid-row: 1 / span 3;
 }
 
@@ -38,7 +38,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	margin-left: 35px;
+	margin-left: 0;
 }
 
 #seedWrapper {
@@ -233,14 +233,14 @@ body {
 }
 
 #umaPane {
-	grid-column: 2;
-	grid-row: 1;
-	width: 700px;  /* needed for when this is a placeholder to consume grid space when uma pane is expanded */
+	grid-column: 1;
+	grid-row: 1 / span 3;
+	width: 100%;  /* needed for when this is a placeholder to consume grid space when uma pane is expanded */
 }
 
 #umaOverlay {
-	grid-column: 2;
-	grid-row: 1;
+	grid-column: 1;
+	grid-row: 1 / span 3;
 }
 
 #umaPane > div {

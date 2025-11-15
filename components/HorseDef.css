@@ -6,7 +6,9 @@
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	width: 700px;
+	width: 100%;
+	max-width: 700px;
+	margin: 0 auto;
 }
 
 .horseDefHeader {
@@ -22,9 +24,11 @@
 
 .umaSelector {
 	display: grid;
-	grid-template-columns: 120px 360px;
+	grid-template-columns: 120px minmax(220px, 1fr);
 	grid-template-rows: repeat(2, 60px);
-	padding: 0 50px 10px 50px;
+	padding: 0 32px 10px 32px;
+	row-gap: 12px;
+	column-gap: 24px;
 }
 
 .umaSelectorIconsBox {
@@ -149,9 +153,9 @@
 	border: 2px solid rgb(163, 221, 111);
 	border-radius: 8px;
 	display: grid;
-	grid-template-columns: repeat(5, 130px);
+	grid-template-columns: repeat(5, minmax(90px, 1fr));
 	margin: 10px auto;
-	width: 650px;
+	width: min(100%, 650px);
 }
 
 .horseParamHeader {
@@ -287,7 +291,7 @@
 	font-weight: bold;
 	margin: 16px auto;
 	text-align: center;
-	width: 680px;
+	width: min(100%, 680px);
 }
 
 .horseSkillListWrapper {
@@ -301,11 +305,11 @@
 .horseSkillList {
 	display: grid;
 	gap: 16px 10px;
-	grid-template-columns: repeat(2, 288px);
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 	list-style-type: none;
 	margin: 0 auto;
 	padding: 12px;
-	width: 576px;
+	width: min(100%, 576px);
 }
 
 .horseSkillList .skill {

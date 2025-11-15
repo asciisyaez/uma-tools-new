@@ -63,7 +63,7 @@ a:hover {
 
 #topPane {
 	display: grid;
-	grid-template-columns: minmax(0, 1fr) 340px;
+	grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
 	grid-template-rows: auto auto auto;
 	gap: 28px;
 	align-items: start;
@@ -71,7 +71,7 @@ a:hover {
 }
 
 .racetrackWrapper {
-	grid-column: 1;
+	grid-column: 2;
 	grid-row: 1 / span 3;
 }
 
@@ -473,17 +473,17 @@ button#run:active {
 }
 
 #umaPane {
-	grid-column: 2;
-	grid-row: 1;
+	grid-column: 1;
+	grid-row: 1 / span 3;
 	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+	grid-template-columns: 1fr;
 	gap: 20px;
 }
 
 #umaOverlay {
-	grid-column: 2;
-	grid-row: 1;
+	grid-column: 1;
+	grid-row: 1 / span 3;
 }
 
 #umaPane > div {
