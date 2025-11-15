@@ -27,6 +27,7 @@
 	--shadow-glass: 0 24px 60px rgba(2, 6, 23, 0.55);
 	--shadow-soft: 0 14px 32px rgba(15, 23, 42, 0.38);
 	--font-sans: Inter, "Noto Sans JP", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--content-max: 1120px;
 }
 
 *,
@@ -56,23 +57,29 @@ a:hover {
 #app {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	gap: 28px;
 	padding: 48px min(48px, 5vw) 32px;
 	min-height: 100vh;
 }
 
 #topPane {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) 340px;
-	grid-template-rows: auto auto auto;
+	display: flex;
+	flex-direction: column;
 	gap: 28px;
-	align-items: start;
+	width: min(100%, var(--content-max));
+	align-items: center;
+	margin: 0 auto;
+}
+
+#topPane > *:not(#umaOverlay) {
 	width: 100%;
 }
 
 .racetrackWrapper {
-	grid-column: 1;
-	grid-row: 1 / span 3;
+	width: min(100%, var(--track-width, var(--content-max)));
+	max-width: var(--content-max);
+	margin: 0 auto;
 }
 
 .racetrackView {
@@ -84,13 +91,16 @@ a:hover {
 	box-shadow: var(--shadow-glass);
 	padding: 18px;
 	overflow-x: auto;
-	max-width: 100%;
+	width: 100%;
+	max-width: min(100%, 960px);
+	margin: 0 auto;
 }
 
 .racetrackView > svg {
-	width: 960px;
-	min-width: 960px;
+	width: min(100%, 960px);
 	height: auto;
+	display: block;
+	margin: 0 auto;
 }
 
 .hasResults .racetrackView > svg text:not(.mouseoverText) {
@@ -103,11 +113,9 @@ a:hover {
 }
 
 #runPane {
-	grid-column: 2;
-	grid-row: 2;
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	gap: 18px;
-	align-content: start;
 	background: var(--bg-secondary);
 	border: 1px solid var(--border-color);
 	border-radius: var(--radius-lg);
@@ -116,6 +124,10 @@ a:hover {
 	padding: 26px 24px;
 	color: var(--text-primary);
 	min-width: 0;
+	width: 100%;
+	max-width: var(--content-max);
+	align-self: center;
+	margin: 0 auto;
 }
 
 #runPane fieldset {
@@ -221,16 +233,15 @@ button#run:active {
 }
 
 #buttonsRow {
-	grid-column: 2;
-	grid-row: 3;
 	display: flex;
 	align-items: center;
 	gap: 18px;
 	flex-wrap: wrap;
 	width: 100%;
+	max-width: var(--content-max);
 	position: relative;
 	padding: 8px 18px;
-	margin: 4px 0;
+	margin: 4px auto;
 	border-radius: var(--radius-md);
 	background: rgba(15, 23, 42, 0.4);
 	border: 1px solid var(--border-color);
@@ -327,7 +338,8 @@ button#run:active {
 	flex-direction: column;
 	align-items: center;
 	gap: 22px;
-	width: 100%;
+	width: min(100%, var(--content-max));
+	margin: 0 auto;
 }
 
 #resultsPane {
@@ -473,17 +485,16 @@ button#run:active {
 }
 
 #umaPane {
-	grid-column: 2;
-	grid-row: 1;
 	width: 100%;
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+	display: flex;
+	flex-direction: column;
 	gap: 20px;
+	align-self: center;
+	margin: 0 auto;
 }
 
 #umaOverlay {
-	grid-column: 2;
-	grid-row: 1;
+	align-self: center;
 }
 
 #umaPane > div {
@@ -687,29 +698,6 @@ button#run:active {
 }
 
 @media (max-width: 1360px) {
-	#topPane {
-		grid-template-columns: minmax(0, 1fr);
-		grid-template-rows: auto;
-	}
-
-	.racetrackWrapper,
-	#umaPane,
-	#umaOverlay,
-	#runPane,
-	#buttonsRow {
-		grid-column: 1;
-		grid-row: auto;
-	}
-
-	.racetrackView > svg {
-		min-width: 720px;
-	}
-
-	#runPane {
-		order: 2;
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	}
-
 	#buttonsRow {
 		padding: 12px;
 	}
@@ -728,14 +716,6 @@ button#run:active {
 @media (max-width: 900px) {
 	#app {
 		padding: 32px 20px 24px;
-	}
-
-	.racetrackView > svg {
-		min-width: 640px;
-	}
-
-	#runPane {
-		grid-template-columns: 1fr;
 	}
 
 	#infoTables {
@@ -769,10 +749,6 @@ button#run:active {
 
 	.racetrackView {
 		padding: 14px;
-	}
-
-	.racetrackView > svg {
-		min-width: 560px;
 	}
 
 	#buttonsRow {
