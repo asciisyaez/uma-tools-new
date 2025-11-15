@@ -78,8 +78,9 @@ a:hover {
 
 .racetrackWrapper {
 	grid-area: track;
-	justify-self: stretch;
+	justify-self: start;
 	min-width: 0;
+	width: min(100%, var(--track-width, 980px));
 }
 
 .racetrackView {
@@ -94,9 +95,15 @@ a:hover {
 	max-width: 100%;
 }
 
+.racetrackView {
+	display: block;
+	width: 100%;
+	min-width: 0;
+}
+
 .racetrackView > svg {
-	width: 960px;
-	min-width: 960px;
+	width: 100%;
+	min-width: 0;
 	height: auto;
 }
 
@@ -707,10 +714,6 @@ button#run:active {
 		grid-row: auto;
 	}
 
-	.racetrackView > svg {
-		min-width: 720px;
-	}
-
 	#runPane {
 		order: 2;
 		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -734,10 +737,6 @@ button#run:active {
 @media (max-width: 900px) {
 	#app {
 		padding: 32px 20px 24px;
-	}
-
-	.racetrackView > svg {
-		min-width: 640px;
 	}
 
 	#runPane {
@@ -775,10 +774,6 @@ button#run:active {
 
 	.racetrackView {
 		padding: 14px;
-	}
-
-	.racetrackView > svg {
-		min-width: 560px;
 	}
 
 	#buttonsRow {
